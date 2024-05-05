@@ -5,10 +5,17 @@ import { signInFormValidation, signUpFormValidation } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isSignInForm, setIsSignInForm] = useState(true);
 
   const [formErrorMessage, setFormErrorMessage] = useState(null);
@@ -46,7 +53,24 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log("User Created:", user);
-          alert("User signed Up successfully");
+          // updating the firebase data with additonal information like name
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              dispatch(
+                addUser({
+                  uid: auth.currentUser.uid,
+                  email: auth.currentUser.email,
+                  displayName: auth.currentUser.displayName,
+                })
+              );
+              console.log("User updated with name successfully");
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setFormErrorMessage(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -63,7 +87,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("User Logged in:", user);
-          alert("Logged In Successfully");
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
