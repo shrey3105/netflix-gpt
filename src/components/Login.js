@@ -9,12 +9,10 @@ import {
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [isSignInForm, setIsSignInForm] = useState(true);
 
@@ -66,7 +64,6 @@ const Login = () => {
                 })
               );
               console.log("User updated with name successfully");
-              navigate("/browse");
             })
             .catch((error) => {
               setFormErrorMessage(error);
@@ -87,7 +84,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("User Logged in:", user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -102,7 +98,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative bg-black text-white min-h-[100vh] z-0">
+    <div className="relative bg-black text-white min-h-[100vh] z-0 pt-32">
       <Header></Header>
       <div className="absolute top-0 h-full w-full z-[-1] opacity-50">
         <img className="w-full h-full" src={BG_BANNER_PATH}></img>

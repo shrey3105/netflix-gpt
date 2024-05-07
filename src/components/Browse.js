@@ -1,11 +1,14 @@
-import { useSelector } from "react-redux";
 import Header from "./Header";
-import { useNavigate } from "react-router-dom";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 const Browse = () => {
+  useNowPlayingMovies();
   return (
     <div>
       <Header></Header>
-      Browse
+      <MainContainer></MainContainer>
+      <SecondaryContainer></SecondaryContainer>
     </div>
   );
 };
