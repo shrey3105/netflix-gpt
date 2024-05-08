@@ -1,6 +1,6 @@
 const VideoTitle = ({ movie_id, overview, title }) => {
   return (
-    <div className="text-white absolute bottom-36 left-20 z-20">
+    <div className="text-white absolute bottom-60 left-20 z-20">
       <h1 className="text-4xl font-bold my-4">{title}</h1>
       <p className="w-1/2 my-4">{overview}</p>
       <div>
