@@ -5,6 +5,7 @@ const gptSlice = createSlice({
   initialState: {
     gptSearch: false,
     language: "en",
+    searchedMovieResults: null,
   },
   reducers: {
     toggleGptSearch: (state, action) => {
@@ -13,9 +14,13 @@ const gptSlice = createSlice({
     toggleLanguage: (state, action) => {
       state.language = action.payload;
     },
+    updateSearchedMovieResults: (state, action) => {
+      state.searchedMovieResults = action.payload;
+    },
   },
 });
 
-export const { toggleGptSearch, toggleLanguage } = gptSlice.actions;
+export const { toggleGptSearch, toggleLanguage, updateSearchedMovieResults } =
+  gptSlice.actions;
 
 export default gptSlice.reducer;
